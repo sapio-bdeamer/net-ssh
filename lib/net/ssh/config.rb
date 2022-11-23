@@ -225,7 +225,6 @@ module Net
           identityagent: :identity_agent,
           globalknownhostsfile: :global_known_hosts_file,
           hostkeyalias: :host_key_alias,
-          identityfile: :keys,
           fingerprinthash: :fingerprint_hash,
           port: :port,
           user: :user,
@@ -293,6 +292,8 @@ module Net
             hash[:set_env] = Shellwords.split(value.to_s).map { |e| e.split '=', 2 }.to_h
           when :numberofpasswordprompts
             hash[:number_of_password_prompts] = value.to_i
+          when :identityfile
+            hash[:keys] = value.map{|v| v.gsub(/%d/, Dir.home)}
           when *TRANSLATE_CONFIG_KEY_RENAME_MAP.keys
             hash[TRANSLATE_CONFIG_KEY_RENAME_MAP[key]] = value
           end
