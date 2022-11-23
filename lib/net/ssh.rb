@@ -219,6 +219,9 @@ module Net
       if invalid_options.any?
         raise ArgumentError, "invalid option(s): #{invalid_options.join(', ')}"
       end
+      unless user.nil? || user.is_a?(String)
+        raise ArgumentError, "user should be nil or String but got #{user.inspect}"
+      end
 
       assign_defaults(options)
       _sanitize_options(options)
